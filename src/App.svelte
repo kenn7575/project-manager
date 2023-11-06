@@ -1,15 +1,15 @@
 <script>
   import './app.css'
-  import {LogOut} from './functions/firebase'
   import Restricted from './components/restricted.svelte';
   
+  // import pages
+  import Home from './pages/Home.svelte'
 </script>
 
-<main class="flex min-h-screen justify-center items-center">
+<main class="w-screen">
   <Restricted>
     <!-- app -->
-    <button on:click={LogOut}>
-      sign out
-    </button>
+    <Home />
+
   </Restricted>
 </main>
