@@ -1,7 +1,7 @@
 <script>
   import './app.css'
   import {LogOut} from './functions/firebase'
-  import Restricted from './compenents/restricted.svelte';
+  import Restricted from './components/restricted.svelte';
   
 </script>
 
