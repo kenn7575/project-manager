@@ -28,7 +28,13 @@
 
         <div class="flex flex-col gap-4 items-center w-full px-3 overflow-y-auto">
             {#each userProjects as project}
-                <a href={`/project/${project.id}`} class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium">{project.name}</a>
+                <a href={`/project/${project.id}`} class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium">
+                    <p>{project.name}</p>
+                    <div class="flex gap-2">
+                        <i class="fas fa-chevron-right" /> <!-- edit pen -->
+                        <i class="fas fa-chevron-right" /> <!-- delete pen -->
+                    </div>
+                </a>
             {/each}
         </div>
 
