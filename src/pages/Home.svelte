@@ -2,7 +2,7 @@
   import Sidebar from '../components/Sidebar.svelte'
   import {userData} from '../stores/userDataStore'
   import { projectStore } from '../stores/projectStore'
-
+import DragList from '../components/DragList.svelte';
   import { onMount } from 'svelte';
 
   import { draggable, dropzone } from '../functions/elementDrag'
@@ -47,6 +47,30 @@
             Done
           </div>
         </div>
+        <DragList data={{
+          columns: [
+            {
+              id: 1,
+              label: '📫 Todo'
+            },
+            {
+              id: 2,
+              label: '✅ Done'
+            }
+          ],
+          cards: [
+            {
+              column: 1,
+              id: 'a',
+              title: 'Wash Dishes'
+            },
+            {
+              column: 2,
+              id: 'b',
+              title: 'Code DND Example'
+            }
+          ]
+        }} />
       </div>
     </div>
     {/if}
