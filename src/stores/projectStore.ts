@@ -2,6 +2,6 @@ import { writable } from "svelte/store";
 export const projectStore = writable({
     uid: "",
     title: "",
-    dateCreated: new Date(),
+    dateCreated: "", // new Date(),
     tasks: [],
 });
