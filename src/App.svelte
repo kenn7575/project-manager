@@ -1,9 +1,16 @@
 <script>
   import './app.css'
-</script>
+  import {LogIn, LogOut} from './functions/firebase'
+  import {userStore} from './stores/userStore'
+  $: console.log($userStore)
 
-<main>
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-</main>
+</script>
+{#if !$userStore}
+<button on:click={LogIn}>
+  login with google 
+</button>
+{:else}
+<button on:click={LogOut}>
+  sign out
+</button>
+{/if}
