@@ -8,14 +8,16 @@
   import Home from './pages/Home.svelte'
 </script>
 
-<main class="flex min-h-screen justify-center items-center">
+<main class="w-screen">
   {#if $isDoneLoadingStore}
+  
   <Restricted>
     <!-- app -->
     <Home />
 
   </Restricted>
   {:else}
+
     <span class="loading loading-spinner loading-lg"></span>
   {/if}
 </main>
