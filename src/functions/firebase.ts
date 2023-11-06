@@ -25,16 +25,6 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 
 //update user store
-import { userStore } from "../stores/userStore";
-import { isDoneLoadingStore } from "../stores/loadingStore";
-onAuthStateChanged(auth, (user) => {
-  isDoneLoadingStore.set(true);
-  if (user) {
-    userStore.set(user);
-  } else {
-    userStore.set(null);
-  }
-});
 
 export function LogOut() {
   signOut(auth)
@@ -68,4 +58,30 @@ export function LogIn() {
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
     });
+}
+//check if user has a document in the users collection
+import { collection, query, where, getDocs } from "firebase/firestore";
+export async function checkIfUserExistsInDB(user) {
+  const q = query(collection(db, "users"), where("uid", "==", user.uid));
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.docs.length > 0) {
+    //return data
+    return querySnapshot.docs[0].data();
+  } else {
+    //create user document
+    await createUserDocument(user);
+  }
+}
+
+//create user document
+import { doc, setDoc } from "firebase/firestore";
+export async function createUserDocument(user) {
+  const userRef = doc(db, "users", user.uid);
+  const newUser = {
+    uid: user.uid,
+    name: user.displayName,
+    email: user.email,
+    photoURL: user.photoURL,
+  };
+  await setDoc(userRef, newUser);
 }

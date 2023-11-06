@@ -1,14 +1,16 @@
 <script>
-    import {userStore} from '../stores/userStore'
+    import {user} from '../stores/userStore'
+    $: console.log($user)
     import LoginForm from './LoginForm.svelte';
+    import DoneLoading from './DoneLoading.svelte';
 </script>
-    
-{#if $userStore}
+<!-- ? note: The user store is being created at first subscripe -->
+{#if $user}
 <slot/>
 {:else}
-<div class="flex justify-center items-center h-screen">
+<DoneLoading>
     <LoginForm />
-</div>
+</DoneLoading>
 {/if}
     
 
