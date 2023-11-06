@@ -26,7 +26,9 @@ export const auth = getAuth(app);
 
 //update user store
 import { userStore } from "../stores/userStore";
+import { isDoneLoadingStore } from "../stores/loadingStore";
 onAuthStateChanged(auth, (user) => {
+  isDoneLoadingStore.set(true);
   if (user) {
     userStore.set(user);
   } else {
@@ -43,6 +45,7 @@ export function LogOut() {
       // An error happened.
     });
 }
+
 export function LogIn() {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
