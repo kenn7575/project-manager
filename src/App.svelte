@@ -1,14 +1,15 @@
 <script>
   import './app.css'
-  import {LogIn, LogOut} from './functions/firebase'
+  import {LogOut} from './functions/firebase'
   import {userStore} from './stores/userStore'
-  $: console.log($userStore)
-
+  import LoginForm from './compenents/LoginForm.svelte';
 </script>
+
+
 {#if !$userStore}
-<button on:click={LogIn}>
-  login with google 
-</button>
+<main class="flex items-center justify-center h-screen">
+  <LoginForm />
+</main>
 {:else}
 <button on:click={LogOut}>
   sign out
