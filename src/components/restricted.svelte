@@ -6,7 +6,9 @@
 {#if $userStore}
 <slot/>
 {:else}
-<LoginForm />
+<div class="flex justify-center items-center h-screen">
+    <LoginForm />
+</div>
 {/if}
     
 
