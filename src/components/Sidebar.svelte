@@ -1,8 +1,6 @@
 <script>
     import {LogOut} from '../functions/firebase'
 
-    
-
     const userProjects = [
         {
             name: 'Project 1',
@@ -17,6 +15,7 @@
             id: 3
         }
     ]
+
 </script>
 
 <div class={`fixed bg-base-200 h-screen w-[18rem]`}>
@@ -28,13 +27,16 @@
 
         <div class="flex flex-col gap-4 items-center w-full px-3 overflow-y-auto">
             {#each userProjects as project}
-                <a href={`/project/${project.id}`} class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium">
+                <div class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between">
                     <p>{project.name}</p>
-                    <div class="flex gap-2">
-                        <i class="fas fa-chevron-right" /> <!-- edit pen -->
-                        <i class="fas fa-chevron-right" /> <!-- delete pen -->
+                    <div class="flex gap-6 items-center">
+                        <a href={`/project/${project.id}`}>
+                            <i class="fas fa-up-right-from-square hover:text-success project-button" title="Open project"/>
+                        </a>
+                        <i class="fas fa-pen hover:text-info project-button" title="Edit project"/>
+                        <i class="fas fa-trash-can hover:text-error project-button" title="Delete project" />
                     </div>
-                </a>
+                </div>
             {/each}
         </div>
 
@@ -45,5 +47,12 @@
 </div>
 
 <style>
-
+    .project-button {
+        transition-property: all;
+        transition-duration: 150ms;
+        cursor: pointer;
+    }
+    .project-button:hover {
+        transform: scale(1.25);
+    }
 </style>
