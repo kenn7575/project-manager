@@ -1,23 +1,43 @@
 <script>
-    let sidebarSizeToggle = false
+    import {LogOut} from '../functions/firebase'
 
-    let sidebarSize = "18rem"
+    
 
-    $: if (sidebarSizeToggle) { sidebarSize = "4rem" } else sidebarSize = "18rem"
+    const userProjects = [
+        {
+            name: 'Project 1',
+            id: 1
+        },
+        {
+            name: 'Project 2',
+            id: 2
+        },
+        {
+            name: 'Project 3',
+            id: 3
+        }
+    ]
 </script>
 
-<div class={`fixed right-0 bg-neutral h-screen w-[${sidebarSize}] justify-center text-center sidebar`}>
-    <div class="flex p-10">
-        <button on:click={() => sidebarSizeToggle = !sidebarSizeToggle}>
-                <p class="font-bold">{sidebarSizeToggle ? "<--" : "-->"}</p>
-        </button>
-        <h1 class="font-bold center m-auto">Sidebar</h1>
+<div class={`fixed bg-base-200 h-screen w-[18rem]`}>
+    <div class="flex flex-col text-center h-full">
+
+        <div class="flex p-10 font-bold">
+            <h1 class="center m-auto">Sidebar</h1>
+        </div>
+
+        <div class="flex flex-col gap-4 items-center w-full px-3 overflow-y-auto">
+            {#each userProjects as project}
+                <a href={`/project/${project.id}`} class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium">{project.name}</a>
+            {/each}
+        </div>
+
+        <div class="mt-auto p-10 font-bold">
+            <button on:click={LogOut}>Sign out</button>
+        </div>
     </div>
 </div>
 
 <style>
-.sidebar {
-    transition: width 0.5s;
-    
-}
+
 </style>
