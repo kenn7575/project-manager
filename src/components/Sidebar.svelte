@@ -3,16 +3,15 @@
     import {user} from '../stores/userStore'
     import {userProjects} from '../stores/userDataStore'
     import type { ProjectType } from '../types/project'
-    // import { projectStore } from '../stores/projectStore' ⚠️ deprecated ⚠️
+     import { projectStore } from '../stores/projectStore'// ⚠️ deprecated ⚠️
     import EditModal from './EditModal.svelte'
     let editModal;
 
     import DeleteModal from './DeleteModal.svelte'
     let deleteModal;
-
+$: console.log($userProjects)
     import dummyData from '../data/projects.json'
-    const userProjects: ProjectType[] = dummyData
-
+    const projects: ProjectType[] = dummyData
 </script>
 
 <div class="fixed bg-base-200 h-screen w-[18rem]">

@@ -5,6 +5,7 @@ import { docStore } from "./docStore";
 import { colStore } from "./colStore";
 import type { Readable } from "svelte/store";
 import type { UserData } from "../types/user";
+import type { ProjectType } from "../types/project";
 import { auth } from "../functions/firebase";
 
 //this loads the user store and then gets and user data and updates the data automatically
@@ -19,11 +20,11 @@ export const userData: Readable<UserData | null> = derived(
   }
 );
 
-export const userProjects: Readable<UserData | null> = derived(
+export const userProjects: Readable<ProjectType | null> = derived(
   user,
   ($user, set) => {
     if ($user) {
-      return colStore<UserData>(`projects`, [
+      return colStore<ProjectType>(`projects`, [
         "users",
         "array-contains",
         auth.currentUser?.uid,

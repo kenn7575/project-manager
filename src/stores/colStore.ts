@@ -19,7 +19,7 @@ export function colStore<T>(path: string, filters?: any[]) {
     unsubscribe = onSnapshot(_query, (snapshot) => {
       const documents = [];
       snapshot.forEach((doc) => {
-        documents.push(doc.data().name);
+        documents.push({ ...doc.data(), id: doc.id, ref: doc.ref });
       });
       set((documents as T) ?? null);
     });
