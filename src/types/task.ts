@@ -1,7 +1,7 @@
 export interface TaskType {
     uid: string;
     title: string;
-    dateCreated: Date;
-    status: "todo" | "in-progress" | "done";
+    dateCreated: Date | string;
+    status: string; // "todo" | "in-progress" | "done"
     description: string;
 }

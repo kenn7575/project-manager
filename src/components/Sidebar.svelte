@@ -10,27 +10,8 @@
     import DeleteModal from './DeleteModal.svelte'
     let deleteModal;
 
-    $: console.log("Projects ",$userProjects);
-    const projects: ProjectType[] = [
-        {
-            title: 'Project 1',
-            uid: "1",
-            dateCreated: new Date(),
-            tasks: []
-        },
-        {
-            title: 'Project 2',
-            uid: "2",
-            dateCreated: new Date(),
-            tasks: []
-        },
-        {
-            title: 'Project 3',
-            uid: "3",
-            dateCreated: new Date(),
-            tasks: []
-        }
-    ]
+    import dummyData from '../data/projects.json'
+    const userProjects: ProjectType[] = dummyData
 
 </script>
 
