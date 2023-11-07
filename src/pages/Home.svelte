@@ -1,57 +1,41 @@
-<script>
+<script lang="ts">
   import Sidebar from "../components/Sidebar.svelte";
-  import { userData } from "../stores/userDataStore";
-  import { projectStore } from "../stores/projectStore";
+
+  import { userProjects } from "../stores/userDataStore";
   import DragList from "../components/DragList.svelte";
   import { onMount } from "svelte";
+  import type { ProjectType } from "../types/project";
 
-  import { draggable, dropzone } from "../functions/dragAndDrop";
-
+  let currentProject: ProjectType | undefined;
   let projectId;
+
+  function getId() {
+    const url = window.location.href.split("/");
+
+    projectId = url.pop();
+
+    if (url.pop() !== "project") return (projectId = null);
+
+    currentProject = $userProjects?.find((project) => project.id === projectId);
+  }
+
+  onMount(() => getId());
+
+  $: (currentProject = $userProjects?.find(
+    (project) => project.id === projectId
+  )),
+    getId();
 </script>
 
 <div class="flex">
-  <Sidebar />
-  {#if $projectStore?.uid}
+  <Sidebar bind:currentProject />
+  {#if currentProject?.id}
     <div class="flex-grow pl-[18rem]">
       <div class="flex flex-col text-center justify-center p-10">
-        <h1>{$projectStore.title}</h1>
-        <DragList
-          data={{
-            columns: [
-              {
-                id: 1,
-                label: "📝 not started",
-              },
-              {
-                id: 2,
-                label: "📫 Todo",
-              },
-              {
-                id: 3,
-                label: "📬 Doing",
-              },
-              {
-                id: 4,
-                label: "✅ Done",
-              },
-            ],
-            cards: [
-              {
-                column: 1,
-                id: "a",
-                title: "Wash Dishes",
-                priority: 2,
-              },
-              {
-                column: 2,
-                id: "b",
-                title: "Code DND Example",
-                priority: 1,
-              },
-            ],
-          }}
-        />
+        <h1>{currentProject.title}</h1>
+        {#if currentProject?.columns.length > 0 && currentProject?.tasks.length > 0}
+          <DragList data={currentProject} />
+        {/if}
       </div>
     </div>
   {/if}
@@ -61,19 +45,5 @@
   h1 {
     font-weight: bold;
     font-size: 3rem;
-  }
-
-  :global(.droppable) {
-    border: 2px dashed #ccc;
-  }
-
-  :global(.droppable) * {
-    pointer-events: none;
-  }
-
-  .dropzone * {
-    width: 7rem;
-    height: 3rem;
-    @apply bg-base-200 rounded-lg;
   }
 </style>

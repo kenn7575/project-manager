@@ -1,8 +1,10 @@
+import type { ColumnType } from "./project";
+
 export interface TaskType {
   id: string;
   title: string;
   dateCreated: Date | string;
-  status: string; // "todo" | "in-progress" | "done"
+  columnId: ColumnType["id"];
   description: string;
   priority: number;
 }

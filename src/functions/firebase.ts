@@ -60,7 +60,16 @@ export function LogIn() {
     });
 }
 //check if user has a document in the users collection
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  setDoc,
+  updateDoc,
+  addDoc,
+} from "firebase/firestore";
 export async function checkIfUserExistsInDB(user) {
   const q = query(collection(db, "users"), where("uid", "==", user.uid));
   const querySnapshot = await getDocs(q);
@@ -74,7 +83,6 @@ export async function checkIfUserExistsInDB(user) {
 }
 
 //create user document
-import { doc, setDoc } from "firebase/firestore";
 export async function createUserDocument(user) {
   const userRef = doc(db, "users", user.uid);
   const newUser = {
@@ -84,4 +92,22 @@ export async function createUserDocument(user) {
     photoURL: user.photoURL,
   };
   await setDoc(userRef, newUser);
+}
+
+//set document function
+export async function setDocument(path, data) {
+  const docRef = doc(db, path);
+  await setDoc(docRef, data);
+}
+
+//update document function
+export async function updateDocument(path, data) {
+  const docRef = doc(db, path);
+  await updateDoc(docRef, data);
+}
+
+//add document to collection
+export async function addDocument(path, data) {
+  const docRef = collection(db, path);
+  await addDoc(docRef, data);
 }
