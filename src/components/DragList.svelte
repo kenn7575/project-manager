@@ -1,27 +1,46 @@
 <script lang="ts">
 import {dropzone, draggable} from "../functions/dragAndDrop";
 import type {ProjectType} from "../types/project";
-import {updateDocument} from "../functions/firebase";
 export let data: ProjectType;
 import {db} from "../functions/firebase";
 
 import { doc, setDoc } from "firebase/firestore"; 
 
+
+function isProjectDataValid(dataToUpdate: ProjectType){
+    if (!dataToUpdate.title) return false;
+    if (!dataToUpdate.dateCreated) return false;
+    if (!dataToUpdate.tasks) return false;
+    if (dataToUpdate.tasks?.length ==0) return false;
+    if (!dataToUpdate.columns) return false;
+    if (dataToUpdate.columns?.length ==0) return false;
+    if (!dataToUpdate.users) return false;
+    if (dataToUpdate.users?.length ==0) return false;
+    return true;
+}
 // Add a new document in collection "cities"
 async function update(dataToUpdate){
+    if (!isProjectDataValid(dataToUpdate)) return;
+    console.log("updating...");
     await setDoc(doc(db, "projects", data.id), {
-      ...prepareData(dataToUpdate)
+      title: dataToUpdate.title,
+      dateCreated: dataToUpdate.dateCreated,
+      tasks: dataToUpdate.tasks,
+        columns: dataToUpdate.columns,
+        users: dataToUpdate.users,
     });
 }
 
 // $: updateDocument("projects", removeRef(data));
-$: update(data);
-
-function prepareData(_data) {
-    delete _data.ref
-    delete _data.id
-    return data;
+$: console.log(data);
+$: try {
+    update(data);
+} catch (error) {
+    console.log(error);
 }
+
+
+
 
 
 </script>

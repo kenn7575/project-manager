@@ -7,6 +7,7 @@ export interface ProjectType {
   tasks: TaskType[];
   ref: any;
   columns: ColumnType[];
+  users: string[];
 }
 
 export interface ColumnType {
