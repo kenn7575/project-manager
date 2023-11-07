@@ -1,24 +1,24 @@
 <script lang="ts">
   const priorityColors = ["success", "info", "warning", "error"];
-  export let card: TaskType;
+  export let task: TaskType;
   import type { TaskType } from "../types/task";
   import { draggable } from "../functions/dragAndDrop";
 </script>
 
 <div class="flex flex-col">
-  {card.title}
+  {task.title}
   <div class="flex items-center gap-1">
     <p>Priority</p>
     <div class="dropdown">
-      {#if card.priority == 0}
+      {#if task.priority == 0}
         <label tabindex="0" class={`btn btn-success m-1`}>Low</label>
-      {:else if card.priority == 1}
+      {:else if task.priority == 1}
         <label tabindex="0" class={`btn btn-warning m-1`}>Medium</label>
-      {:else if card.priority == 2}
+      {:else if task.priority == 2}
         <label tabindex="0" class="btn btn-warning bg-orange-400 m-1"
           >High</label
         >
-      {:else if card.priority == 3}
+      {:else if task.priority == 3}
         <label tabindex="0" class="btn btn-error m-1">Very High</label>
       {/if}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -29,7 +29,7 @@
         <li>
           <button
             on:click={() => {
-              card.priority = 0;
+              task.priority = 0;
             }}
             >Low
           </button>
@@ -37,7 +37,7 @@
         <li>
           <button
             on:click={() => {
-              card.priority = 1;
+              task.priority = 1;
             }}
             >Medium
           </button>
@@ -45,7 +45,7 @@
         <li>
           <button
             on:click={() => {
-              card.priority = 2;
+              task.priority = 2;
             }}
             >High
           </button>
@@ -53,7 +53,7 @@
         <li>
           <button
             on:click={() => {
-              card.priority = 3;
+              task.priority = 3;
             }}
             >Very High
           </button>

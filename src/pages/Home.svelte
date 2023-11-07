@@ -6,7 +6,7 @@
   import { onMount } from "svelte";
   import type { ProjectType } from "../types/project";
 
-  let currentProject: ProjectType | undefined;
+  let currentProject: ProjectType;
   let projectId;
 
   function getId() {
