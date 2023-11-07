@@ -1,6 +1,5 @@
 <script>
     import {user} from '../stores/userStore'
-    $: console.log($user)
     import LoginForm from './LoginForm.svelte';
     import DoneLoading from './DoneLoading.svelte';
 </script>

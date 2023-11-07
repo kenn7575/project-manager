@@ -27,12 +27,20 @@ import DragList from '../components/DragList.svelte';
           columns: [
             {
               id: 1,
-              label: '📫 Todo'
+              label: '📝 not started'
             },
             {
               id: 2,
+              label: '📫 Todo'
+            },
+            {
+              id: 3,
+              label: '📬 Doing'
+            },
+            {
+              id: 4,
               label: '✅ Done'
-            }
+            },
           ],
           cards: [
             {

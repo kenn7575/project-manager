@@ -1,17 +1,17 @@
 <script lang="ts">
     import {LogOut} from '../functions/firebase'
     import {user} from '../stores/userStore'
-    import {userData} from '../stores/userDataStore'
+    import {userProjects} from '../stores/userDataStore'
     import type { ProjectType } from '../types/project'
-    import { projectStore } from '../stores/projectStore'
-
+    // import { projectStore } from '../stores/projectStore' ⚠️ deprecated ⚠️
     import EditModal from './EditModal.svelte'
     let editModal;
 
     import DeleteModal from './DeleteModal.svelte'
     let deleteModal;
 
-    const userProjects: ProjectType[] = [
+    $: console.log("Projects ",$userProjects);
+    const projects: ProjectType[] = [
         {
             title: 'Project 1',
             uid: "1",
@@ -46,7 +46,7 @@
             </div>
     
             <div class="flex flex-col gap-4 items-center w-full  overflow-y-auto">
-                {#each userProjects as project}
+                {#each projects as project}
                     <div class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between">
                         <p>{project.title}</p>
                         <div class="flex gap-6 items-center">
