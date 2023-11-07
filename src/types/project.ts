@@ -1,8 +1,10 @@
-import type { TaskType } from './task';
+import type { TaskType } from "./task";
 
 export interface ProjectType {
-    id: string;
-    title: string;
-    dateCreated: Date;
-    tasks: TaskType[];
+  id: string;
+  title: string;
+  dateCreated: Date;
+  tasks: TaskType[];
+  ref: any;
+  columns: Object[];
 }
