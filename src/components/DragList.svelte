@@ -62,7 +62,7 @@ $: try {
 			{#if tasks.length > 0}
 				<ul class="cards flex flex-col gap-2">
 					{#each tasks as task (task.id)}
-						<li class={`p-4 bg-neutral rounded-lg border border-neutral-300`} use:draggable={task.id}>
+						<li class="p-4 bg-neutral rounded-lg border border-neutral-300" use:draggable={task.id}>
 							{task.title}
 						</li>
 					{/each}
