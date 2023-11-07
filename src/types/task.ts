@@ -1,7 +1,7 @@
 export interface TaskType {
-    uid: string;
+    id: string;
     title: string;
     dateCreated: Date | string;
-    status: string; // "todo" | "in-progress" | "done"
+    columnId: number; // TODO: use project column id
     description: string;
 }

@@ -3,15 +3,13 @@
     import {user} from '../stores/userStore'
     import {userProjects} from '../stores/userDataStore'
     import type { ProjectType } from '../types/project'
-     import { projectStore } from '../stores/projectStore'// ⚠️ deprecated ⚠️
     import EditModal from './EditModal.svelte'
     let editModal;
 
     import DeleteModal from './DeleteModal.svelte'
     let deleteModal;
 
-    import dummyData from '../data/projects'
-    const projects: ProjectType[] = dummyData
+    export let currentProject: ProjectType
 </script>
 
 <div class="fixed bg-base-200 h-screen w-[18rem]">
@@ -26,30 +24,32 @@
             </div>
     
             <div class="flex flex-col gap-4 items-center w-full  overflow-y-auto">
-                {#each projects as project}
-                    <div class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between">
-                        <p>{project.title}</p>
-                        <div class="flex gap-6 items-center">
-                            <!-- <a href={`/project/${project.uid}`}>
-                                <i class="fas fa-up-right-from-square hover:text-success project-button" title="Open project"/>
-                            </a> -->
-                            <button on:click={() => {
-                                projectStore.set(project)
-                                window.history.replaceState(project, project.title, "/project/" + project.uid )
-                            }} >
-                                <i class="fas fa-up-right-from-square hover:text-success project-button" title="Open project"/>
-                            </button>
-                            <EditModal bind:modal={ editModal } project={ project } />
-                            <button on:click={() => editModal.showModal()} >
-                                <i class="fas fa-pen hover:text-info project-button" title="Edit project"/>
-                            </button>
-                            <DeleteModal bind:modal={ deleteModal } project={ project } />
-                            <button on:click={() => deleteModal.showModal()} >
-                                <i class="fas fa-trash-can hover:text-error project-button" title="Delete project" />
-                            </button>
+                {#if $userProjects != null}
+                    {#each $userProjects as project}
+                        <div class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between">
+                            <p>{project.title}</p>
+                            <div class="flex gap-6 items-center">
+                                <!-- <a href={`/project/${project.uid}`}>
+                                    <i class="fas fa-up-right-from-square hover:text-success project-button" title="Open project"/>
+                                </a> -->
+                                <button on:click={() => {
+                                    currentProject = project
+                                    // window.history.replaceState(project, project.title, "/project/" + project.id )
+                                }} >
+                                    <i class="fas fa-up-right-from-square hover:text-success project-button" title="Open project"/>
+                                </button>
+                                <EditModal bind:modal={ editModal } project={ project } />
+                                <button on:click={() => editModal.showModal()} >
+                                    <i class="fas fa-pen hover:text-info project-button" title="Edit project"/>
+                                </button>
+                                <DeleteModal bind:modal={ deleteModal } project={ project } />
+                                <button on:click={() => deleteModal.showModal()} >
+                                    <i class="fas fa-trash-can hover:text-error project-button" title="Delete project" />
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                {/each}
+                    {/each}
+                {/if}
             </div>
         </div>
 

@@ -20,11 +20,11 @@ export const userData: Readable<UserData | null> = derived(
   }
 );
 
-export const userProjects: Readable<ProjectType | null> = derived(
+export const userProjects: Readable<ProjectType[] | null> = derived(
   user,
   ($user, set) => {
     if ($user) {
-      return colStore<ProjectType>(`projects`, [
+      return colStore<ProjectType[]>(`projects`, [
         "users",
         "array-contains",
         auth.currentUser?.uid,
