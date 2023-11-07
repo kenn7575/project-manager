@@ -6,13 +6,14 @@
     import SidebarProject from './SidebarProject.svelte'
     import {addDocument} from '../functions/firebase'
 
-    let newProjectTitle: string
-
     export let currentProject: ProjectType
-
+    
+    let newProjectTitle = ""
+    
     async function addProject(){
+        if (newProjectTitle == "") return alert("Please enter a project name")
         const project = {
-            title: "New Project",
+            title: newProjectTitle,
             dateCreated: new Date().toISOString(),
             tasks: [{id: "1", title: "Task 1", columnId: "1"}],
             columns: [{id: "1", label: "To Do"}, {id: "2", label: "In Progress"}, {id: "3", label: "Done"}],
@@ -20,13 +21,14 @@
         }
         addDocument("projects",project);
     
+        newProjectTitle = ""
     }
 </script>
 
 <div class="fixed bg-base-200 h-screen w-[18rem]">
     <div class="flex flex-col justify-between h-full px-3">
 
-        <div class="flex flex-col text-center h-full  gap-16 mt-8">
+        <div class="flex flex-col text-center h-[90%] gap-16 mt-8">
 
             <div class="flex font-bold items-center justify-start gap-2">
                 <img class="w-8 h-8 rounded-full" src="{$user?.photoURL}" alt="profile">
@@ -34,24 +36,22 @@
                
             </div>
     
-            <div class="flex flex-col gap-8 items-center w-full  overflow-y-auto">
-
-                <div class="join flex w-full">
+            <div class="flex flex-col items-center w-full">
+                <div />
+                <div class="join flex w-full mb-8">
                     <input class="join-item w-full px-3 py-[0.33rem] rounded-lg bg-neutral outline-none font-semibold placeholder:opacity-60 placeholder:font-normal"
                         type="text" placeholder="New project" bind:value={newProjectTitle} />
-                    <button class="join-item bg-base-300 px-3" on:click={() => {
-                        // add new project to userProjects
-                        console.log(newProjectTitle)
-                        newProjectTitle = ""
-                    }}>
+                    <button class="join-item bg-base-300 px-3" on:click={addProject}>
                         <i class="fas fa-plus" />
                     </button>
                 </div>
 
                 {#if $userProjects != null}
-                    {#each $userProjects as project}
-                        <SidebarProject bind:currentProject={currentProject} project={project} />
-                    {/each}
+                    <li class="flex flex-col w-full gap-4 h-[70%] overflow-y-auto">
+                        {#each $userProjects as project}
+                            <SidebarProject bind:currentProject={currentProject} project={project} />
+                        {/each}
+                    </li>
                 {/if}
             </div>
         </div>
@@ -63,12 +63,23 @@
 </div>
 
 <style>
-    .project-button {
-        transition-property: all;
-        transition-duration: 150ms;
-        cursor: pointer;
+        /* width */
+    ::-webkit-scrollbar {
+    width: 0;
     }
-    .project-button:hover {
-        transform: scale(1.25);
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555;
     }
 </style>

@@ -28,7 +28,7 @@ export const userProjects: Readable<ProjectType[] | null> = derived(
         "users",
         "array-contains",
         auth.currentUser?.uid,
-      ]).subscribe(set);
+      ],"dateCreated").subscribe(set);
     } else {
       set(null);
     }

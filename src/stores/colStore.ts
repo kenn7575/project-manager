@@ -1,9 +1,9 @@
-import { onSnapshot, collection, where, query } from "firebase/firestore";
+import { onSnapshot, collection, where, query, orderBy } from "firebase/firestore";
 import { db } from "../functions/firebase";
 import { writable } from "svelte/store";
 
 //custom store to get a document from firestore
-export function colStore<T>(path: string, filters?: any[]) {
+export function colStore<T>(path: string, filters?: any[], _orderBy?: any) {
   let unsubscribe: () => void;
 
   const collectionRef = collection(db, path);
@@ -11,7 +11,7 @@ export function colStore<T>(path: string, filters?: any[]) {
   // Create a query against the collection.
   let _query;
   if (filters && filters.length == 3) {
-    _query = query(collectionRef, where(filters[0], filters[1], filters[2]));
+    _query = query(collectionRef, where(filters[0], filters[1], filters[2]), orderBy(_orderBy, "asc"));
   } else {
     _query = collectionRef;
   }

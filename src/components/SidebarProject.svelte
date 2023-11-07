@@ -8,18 +8,26 @@
     import DeleteModal from "./DeleteModal.svelte"
     let deleteModal
 
-    let openProject = currentProject == project
+    $: openProject = currentProject == project
     // console.log(openProject)
 </script>
 
-<div
-    class={`btn-ghost ${openProject ? "bg-base-300" : "bg-neutral"} hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between`}
+<ul
+    class={`btn-ghost ${
+        openProject
+            ? "bg-base-300 border-2 border-gray-500 hover:border-gray-400"
+            : "bg-neutral"
+    }
+        hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between project-button`}
 >
-    <p>{project.title}</p>
+    <button
+        on:click={() => {
+            currentProject = project
+            window.history.replaceState("", null, "/project/" + project.id)
+        }}>{project.title}</button
+    >
+    
     <div class="flex gap-6 items-center">
-        <!-- <a href={`/project/${project.uid}`}>
-            <i class="fas fa-up-right-from-square hover:text-success project-button" title="Open project"/>
-        </a> -->
         <button
             on:click={() => {
                 currentProject = project
@@ -31,14 +39,14 @@
                 title="Open project"
             />
         </button>
-        <EditModal bind:modal={editModal} bind:project={project} />
+        <EditModal bind:modal={editModal} bind:project />
         <button on:click={() => editModal.showModal()}>
             <i
                 class="fas fa-pen hover:text-info project-button"
                 title="Edit project"
             />
         </button>
-        <DeleteModal bind:modal={deleteModal} bind:project={project} />
+        <DeleteModal bind:modal={deleteModal} bind:project />
         <button on:click={() => deleteModal.showModal()}>
             <i
                 class="fas fa-trash-can hover:text-error project-button"
@@ -46,4 +54,12 @@
             />
         </button>
     </div>
-</div>
+</ul>
+
+<style>
+    .project-button {
+        transition-property: all;
+        transition-duration: 150ms;
+        /* cursor: pointer; */
+    }
+</style>
