@@ -7,10 +7,13 @@
 
     import DeleteModal from "./DeleteModal.svelte"
     let deleteModal
+
+    let openProject = currentProject == project
+    // console.log(openProject)
 </script>
 
 <div
-    class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between"
+    class={`btn-ghost ${openProject ? "bg-base-300" : "bg-neutral"} hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between`}
 >
     <p>{project.title}</p>
     <div class="flex gap-6 items-center">

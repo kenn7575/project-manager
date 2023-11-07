@@ -5,13 +5,15 @@
     import type { ProjectType } from '../types/project'
     import SidebarProject from './SidebarProject.svelte'
 
+    let newProjectTitle: string
+
     export let currentProject: ProjectType
 </script>
 
 <div class="fixed bg-base-200 h-screen w-[18rem]">
     <div class="flex flex-col justify-between h-full px-3">
 
-        <div class="flex flex-col text-center h-full  gap-8 mt-8">
+        <div class="flex flex-col text-center h-full  gap-16 mt-8">
 
             <div class="flex font-bold items-center justify-start gap-2">
                 <img class="w-8 h-8 rounded-full" src="{$user?.photoURL}" alt="profile">
@@ -19,11 +21,16 @@
                
             </div>
     
-            <div class="flex flex-col gap-4 items-center w-full  overflow-y-auto">
+            <div class="flex flex-col gap-8 items-center w-full  overflow-y-auto">
 
-                <div class="flex w-full justify-between px-5">
-                    <p>Projects</p>
-                    <button on:click={() => console.log("add project")}>
+                <div class="join flex w-full">
+                    <input class="join-item w-full px-3 py-[0.33rem] rounded-lg bg-neutral outline-none font-semibold placeholder:opacity-60 placeholder:font-normal"
+                        type="text" placeholder="New project" bind:value={newProjectTitle} />
+                    <button class="join-item bg-base-300 px-3" on:click={() => {
+                        // add new project to userProjects
+                        console.log(newProjectTitle)
+                        newProjectTitle = ""
+                    }}>
                         <i class="fas fa-plus" />
                     </button>
                 </div>
