@@ -4,7 +4,7 @@
     import {userProjects} from '../stores/userDataStore'
     import type { ProjectType } from '../types/project'
     import SidebarProject from './SidebarProject.svelte'
-    import {addDocument} from '../functions/firebase'
+    import { addDocument } from '../functions/firebase'
 
     export let currentProject: ProjectType
     
@@ -15,7 +15,7 @@
         const project = {
             title: newProjectTitle,
             dateCreated: new Date().toISOString(),
-            tasks: [{id: "1", title: "Task 1", columnId: "1"}],
+            tasks: [{id: "1", title: "Task 1", columnId: "1", priority: 0}],
             columns: [{id: "1", label: "To Do"}, {id: "2", label: "In Progress"}, {id: "3", label: "Done"}],
             users: [$user.uid]
         }
@@ -36,7 +36,7 @@
                
             </div>
     
-            <div class="flex flex-col items-center w-full">
+            <div class="flex flex-col items-center h-full">
                 <div />
                 <div class="join flex w-full mb-8">
                     <input class="join-item w-full px-3 py-[0.33rem] rounded-lg bg-neutral outline-none font-semibold placeholder:opacity-60 placeholder:font-normal"

@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { deleteDoc, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { errorStore } from "../stores/errorStore";
 
@@ -112,4 +112,9 @@ export async function updateDocument(path, data) {
 export async function addDocument(path, data) {
   const docRef = collection(db, path);
   await addDoc(docRef, data);
+}
+
+export async function deleteDocument(path) {
+  const docRef = doc(db, path);
+  await deleteDoc(docRef);
 }

@@ -26,7 +26,7 @@
             window.history.replaceState("", null, "/project/" + project.id)
         }}>{project.title}</button
     >
-    
+
     <div class="flex gap-6 items-center">
         <button
             on:click={() => {
