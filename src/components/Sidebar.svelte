@@ -11,7 +11,7 @@
     import DeleteModal from './DeleteModal.svelte'
     let deleteModal;
 
-    import dummyData from '../data/projects.json'
+    import dummyData from '../data/projects'
     const userProjects: ProjectType[] = dummyData
 
 </script>

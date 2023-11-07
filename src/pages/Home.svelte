@@ -5,48 +5,18 @@
 import DragList from '../components/DragList.svelte';
   import { onMount } from 'svelte';
 
-  import { draggable, dropzone } from '../functions/elementDrag'
+  import { draggable, dropzone } from '../functions/dragAndDrop'
 
   let projectId;
 
-  onMount(() => {
-    const url = window.location.href.split('/')
-
-    projectId = url.pop();
-
-    if (url.pop() !== 'project') return projectId = null;
-    projectStore.set({...$projectStore, uid: projectId})
-  });
 </script>
 
 <div class="flex">
     <Sidebar />
-    {#if $projectStore}
+    {#if $projectStore?.uid}
     <div class="flex-grow pl-[18rem]">
       <div class="flex flex-col text-center justify-center p-10">
         <h1>{ $projectStore.title }</h1>
-        <div use:draggable={"card1"}>Card1</div>
-        <div use:draggable={"card2"}>Card2</div>
-        <div use:draggable={"card3"}>Card3</div>
-        <div class="flex justify-around mt-10 dropzone">
-          <div use:dropzone={{
-            onDrop(project_id) { console.log("Todo", project_id)}
-            }}>
-            Todo
-          </div>
-
-          <div use:dropzone={{
-            onDrop(project_id) { console.log("In progress", project_id)}
-            }}>
-            In Progress
-          </div>
-
-          <div use:dropzone={{
-            onDrop(project_id) { console.log("Done", project_id)}
-            }}>
-            Done
-          </div>
-        </div>
         <DragList data={{
           columns: [
             {
