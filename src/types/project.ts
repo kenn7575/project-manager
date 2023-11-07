@@ -6,5 +6,11 @@ export interface ProjectType {
   dateCreated: Date;
   tasks: TaskType[];
   ref: any;
-  columns: Object[];
+  columns: ColumnType[];
+}
+
+export interface ColumnType {
+  id: string;
+  label: string;
+  dateCreated: Date;
 }
