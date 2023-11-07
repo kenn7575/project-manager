@@ -4,8 +4,21 @@
     import {userProjects} from '../stores/userDataStore'
     import type { ProjectType } from '../types/project'
     import SidebarProject from './SidebarProject.svelte'
+    import {addDocument} from '../functions/firebase'
 
     export let currentProject: ProjectType
+
+    async function addProject(){
+        const project = {
+            title: "New Project",
+            dateCreated: new Date().toISOString(),
+            tasks: [{id: "1", title: "Task 1", columnId: "1"}],
+            columns: [{id: "1", label: "To Do"}, {id: "2", label: "In Progress"}, {id: "3", label: "Done"}],
+            users: [$user.uid]
+        }
+        addDocument("projects",project);
+    
+    }
 </script>
 
 <div class="fixed bg-base-200 h-screen w-[18rem]">
