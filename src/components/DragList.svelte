@@ -3,9 +3,9 @@ import {dropzone, draggable} from "../functions/dragAndDrop";
 import type {ProjectType} from "../types/project";
 export let data: ProjectType;
 import {db} from "../functions/firebase";
+import {setDocument} from "../functions/firebase";
 
 import { doc, setDoc } from "firebase/firestore"; 
-
 
 function isProjectDataValid(dataToUpdate: ProjectType){
     if (!dataToUpdate.title) return false;
@@ -18,11 +18,13 @@ function isProjectDataValid(dataToUpdate: ProjectType){
     if (dataToUpdate.users?.length ==0) return false;
     return true;
 }
+
 // Add a new document in collection "cities"
 async function update(dataToUpdate){
-    if (!isProjectDataValid(dataToUpdate)) return;
-    console.log("updating...");
-    await setDoc(doc(db, "projects", data.id), {
+    if (!isProjectDataValid(dataToUpdate)) {
+        
+    };
+    await setDocument("projects/"+ data.id, {
       title: dataToUpdate.title,
       dateCreated: dataToUpdate.dateCreated,
       tasks: dataToUpdate.tasks,
