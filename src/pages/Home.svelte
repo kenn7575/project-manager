@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
   import Sidebar from '../components/Sidebar.svelte'
-  import {userData} from '../stores/userDataStore'
+
   import { userProjects } from '../stores/userDataStore'
   import DragList from '../components/DragList.svelte';
   import { onMount } from 'svelte'
+  import type { ProjectType } from '../types/project'
 
-  let currentProject
+  let currentProject:  ProjectType | undefined;
   let projectId
   
   function getId() {
@@ -31,10 +32,7 @@
       <div class="flex flex-col text-center justify-center p-10">
         <h1>{ currentProject.title }</h1>
         {#if currentProject?.columns.length > 0 && currentProject?.tasks.length > 0}
-        <DragList data={{
-          columns: currentProject.columns,
-          tasks: currentProject.tasks
-        }} />
+        <DragList data={currentProject} />
         {/if}
       </div>
     </div>

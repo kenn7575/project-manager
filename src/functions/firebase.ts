@@ -85,3 +85,10 @@ export async function createUserDocument(user) {
   };
   await setDoc(userRef, newUser);
 }
+
+//update document function
+import { updateDoc } from "firebase/firestore";
+export async function updateDocument(path, data) {
+  const docRef = doc(db, path);
+  await updateDoc(docRef, data);
+}
