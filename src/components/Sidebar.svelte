@@ -3,11 +3,7 @@
     import {user} from '../stores/userStore'
     import {userProjects} from '../stores/userDataStore'
     import type { ProjectType } from '../types/project'
-    import EditModal from './EditModal.svelte'
-    let editModal;
-
-    import DeleteModal from './DeleteModal.svelte'
-    let deleteModal;
+    import SidebarProject from './SidebarProject.svelte'
 
     export let currentProject: ProjectType
 </script>
@@ -24,30 +20,17 @@
             </div>
     
             <div class="flex flex-col gap-4 items-center w-full  overflow-y-auto">
+
+                <div class="flex w-full justify-between px-5">
+                    <p>Projects</p>
+                    <button on:click={() => console.log("add project")}>
+                        <i class="fas fa-plus" />
+                    </button>
+                </div>
+
                 {#if $userProjects != null}
                     {#each $userProjects as project}
-                        <div class="btn-ghost bg-neutral hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between">
-                            <p>{project.title}</p>
-                            <div class="flex gap-6 items-center">
-                                <!-- <a href={`/project/${project.uid}`}>
-                                    <i class="fas fa-up-right-from-square hover:text-success project-button" title="Open project"/>
-                                </a> -->
-                                <button on:click={() => {
-                                    currentProject = project
-                                    // window.history.replaceState(project, project.title, "/project/" + project.id )
-                                }} >
-                                    <i class="fas fa-up-right-from-square hover:text-success project-button" title="Open project"/>
-                                </button>
-                                <EditModal bind:modal={ editModal } project={ project } />
-                                <button on:click={() => editModal.showModal()} >
-                                    <i class="fas fa-pen hover:text-info project-button" title="Edit project"/>
-                                </button>
-                                <DeleteModal bind:modal={ deleteModal } project={ project } />
-                                <button on:click={() => deleteModal.showModal()} >
-                                    <i class="fas fa-trash-can hover:text-error project-button" title="Delete project" />
-                                </button>
-                            </div>
-                        </div>
+                        <SidebarProject bind:currentProject={currentProject} project={project} />
                     {/each}
                 {/if}
             </div>
