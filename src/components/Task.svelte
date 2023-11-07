@@ -5,7 +5,7 @@
   import { draggable } from "../functions/dragAndDrop";
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col w-full">
   {task.title}
   <div class="flex items-center gap-1">
     <p>Priority</p>
@@ -24,7 +24,7 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <ul
         tabindex="0"
-        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32"
       >
         <li>
           <button
