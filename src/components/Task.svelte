@@ -28,6 +28,7 @@
       >
         <li>
           <button
+            class="text-success"
             on:click={() => {
               task.priority = 0;
             }}
@@ -36,6 +37,7 @@
         </li>
         <li>
           <button
+            class="text-warning"
             on:click={() => {
               task.priority = 1;
             }}
@@ -44,6 +46,7 @@
         </li>
         <li>
           <button
+            class="text-orange-400"
             on:click={() => {
               task.priority = 2;
             }}
@@ -52,6 +55,7 @@
         </li>
         <li>
           <button
+            class="text-error"
             on:click={() => {
               task.priority = 3;
             }}
