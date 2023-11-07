@@ -1,2 +1,2 @@
 import { writable } from "svelte/store";
-export const errorStore = writable(null);
+export const errorStore = writable([]);
