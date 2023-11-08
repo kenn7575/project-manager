@@ -88,7 +88,7 @@
   import ColumnMenu from "./ColumnMenu.svelte";
 </script>
 
-<ul class="list-none m-0 px-8 flex gap-4 box-border items-start">
+<ul class="list-none m-0 px-8 flex gap-4 box-border items-start p-2">
   {#each data.columns as column}
     {@const tasks = data.tasks.filter((c) => c.columnId == column.id)}
     <li
