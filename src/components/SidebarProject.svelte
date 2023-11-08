@@ -10,10 +10,15 @@
 
   $: openProject = currentProject == project;
   // console.log(openProject)
+
+  let projectButton
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <ul
-  on:click={() => {
+  on:click={(e) => {
+    if (e.target != projectButton) return;
     currentProject = project;
     window.history.replaceState("", null, "/project/" + project.id);
   }}
@@ -23,8 +28,9 @@
       : "bg-neutral"
   }
         hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between project-button`}
+        bind:this={projectButton}
 >
-  <p class="cursor-default">{project.title}</p>
+  <p class="pointer-events-none">{project.title}</p>
 
   <div class="flex gap-6 items-center">
     <!-- <button

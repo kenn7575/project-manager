@@ -14,6 +14,7 @@
     if (newProjectTitle == "") return alert("Please enter a project name");
     const project = {
       title: newProjectTitle,
+      description: "",
       dateCreated: new Date().toISOString(),
       tasks: [{ id: "1", title: "Task 1", columnId: "1", priority: 0 }],
       columns: [

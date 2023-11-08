@@ -30,7 +30,7 @@
     });
   }
   // $: updateDocument("projects", removeRef(data));
-  $: console.log(data);
+  $: console.log("updating"), data;
   $: update(data);
 
   function addColumn() {
