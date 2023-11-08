@@ -2,12 +2,13 @@
   import { dropzone, draggable } from "../functions/dragAndDrop";
   import type { ProjectType } from "../types/project";
   export let data: ProjectType;
+  import { errorStore } from "../stores/errorStore";
+  import { setDocument } from "../functions/firebase";
   let EditModeColumn: string;
   let newLabel: string;
-  import { errorStore } from "../stores/errorStore";
-  $: console.log($errorStore);
 
-  import { setDocument } from "../functions/firebase";
+  $: update(data);
+
   function isProjectDataValid(dataToUpdate: ProjectType) {
     if (!dataToUpdate.title) return false;
     if (!dataToUpdate.dateCreated) return false;
@@ -19,10 +20,10 @@
     if (dataToUpdate.users?.length == 0) return false;
     return true;
   }
-  // Add a new document in collection "cities"
   async function update(dataToUpdate) {
     if (!isProjectDataValid(dataToUpdate)) {
     }
+
     await setDocument("projects/" + data.id, {
       title: dataToUpdate.title,
       dateCreated: dataToUpdate.dateCreated,
@@ -30,10 +31,8 @@
       columns: dataToUpdate.columns,
       users: dataToUpdate.users,
     });
+    console.log("updated");
   }
-  // $: updateDocument("projects", removeRef(data));
-  $: console.log(data);
-  $: update(data);
 
   function addColumn() {
     //find last id
@@ -68,6 +67,7 @@
 
   const priorityColors = ["success", "info", "warning", "error"];
   import Task from "./Task.svelte";
+  import { userProjects } from "../stores/userDataStore";
 </script>
 
 <ul class="list-none m-0 px-8 flex gap-4 box-border items-start">

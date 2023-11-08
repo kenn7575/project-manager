@@ -71,6 +71,7 @@ import {
   setDoc,
   updateDoc,
   addDoc,
+  getDoc,
 } from "firebase/firestore";
 export async function checkIfUserExistsInDB(user) {
   const q = query(collection(db, "users"), where("uid", "==", user.uid));
@@ -113,8 +114,18 @@ export async function addDocument(path, data) {
   const docRef = collection(db, path);
   await addDoc(docRef, data);
 }
-
+//delete document
 export async function deleteDocument(path) {
   const docRef = doc(db, path);
   await deleteDoc(docRef);
+}
+//get document
+export async function getDocument(path) {
+  const docRef = doc(db, path);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    return null;
+  }
 }
