@@ -4,6 +4,8 @@
   export let data: ProjectType;
   let EditModeColumn: string;
   let newLabel: string;
+  import { errorStore } from "../stores/errorStore";
+  $: console.log($errorStore);
 
   import { setDocument } from "../functions/firebase";
   function isProjectDataValid(dataToUpdate: ProjectType) {
@@ -43,13 +45,22 @@
     });
     data = data;
   }
+
   function removeColumn(id) {
     //check if there are tasks in the column
     const tasks = data.tasks.filter((c) => c.columnId == id);
-    if (tasks.length > 0)
-      return alert(
-        "There are tasks in this column, please move them before deleting the column"
-      );
+    if (tasks.length > 0) {
+      errorStore.update((e) => {
+        const message = [
+          ...e,
+          { message: "You can't delete a column with tasks in it" },
+        ];
+
+        return message;
+      });
+      return;
+    }
+
     //remove column
     data.columns = data.columns.filter((c) => c.id != id);
     data = data;
@@ -63,7 +74,7 @@
   {#each data.columns as column}
     {@const tasks = data.tasks.filter((c) => c.columnId == column.id)}
     <li
-      class="column p-4 w-72 h-96 max-h-full bg-base-200 rounded-lg border border-neutral-300 outline-info relative group"
+      class="column p-4 w-72 h-96 min-w-[18rem] max-h-full bg-base-200 rounded-lg border border-neutral-300 outline-info relative group"
       use:dropzone={{
         on_dropzone(task_id) {
           const task = data.tasks.find((c) => c.id == task_id);
@@ -149,7 +160,9 @@
       {/if}
     </li>
   {/each}
-  <button class="" on:click={addColumn}>add column</button>
+  <button class="min-w-[18rem] text-start" on:click={addColumn}
+    >add column</button
+  >
 </ul>
 
 <style>
