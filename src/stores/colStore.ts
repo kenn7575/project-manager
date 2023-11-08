@@ -34,11 +34,9 @@ export function colStore<T>(path: string, filters?: any[], _orderBy?: any) {
         documents.push({ ...doc.data(), id: doc.id });
       });
 
-      console.log("get");
       // Check if the data is different before updating the store
       if (JSON.stringify(currentData) !== JSON.stringify(documents)) {
         currentData = documents as T;
-        console.log("apply");
 
         set(currentData);
       }

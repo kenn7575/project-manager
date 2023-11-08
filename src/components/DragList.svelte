@@ -6,6 +6,8 @@
   import { setDocument } from "../functions/firebase";
   let EditModeColumn: string;
   let newLabel: string;
+  import TaskDetailsModel from "./TaskDetailsModel.svelte";
+  let taskDetailsModal;
 
   $: update(data);
 
@@ -31,7 +33,6 @@
       columns: dataToUpdate.columns,
       users: dataToUpdate.users,
     });
-    console.log("updated");
   }
 
   function addColumn() {
@@ -64,17 +65,34 @@
     data.columns = data.columns.filter((c) => c.id != id);
     data = data;
   }
+  function removeTask(id) {
+    data.tasks = data.tasks.filter((c) => c.id != id);
+    data = data;
+  }
+  function addTask(columnId) {
+    //find last id
+    const lastId = data.tasks[data.tasks.length - 1].id;
+    data.tasks.push({
+      id: lastId + 1,
+      title: "Untitled",
+      columnId,
+      priority: 0,
+      dateCreated: new Date(),
+      description: "",
+    });
+    data = data;
+  }
 
   const priorityColors = ["success", "info", "warning", "error"];
   import Task from "./Task.svelte";
-  import { userProjects } from "../stores/userDataStore";
+  import ColumnMenu from "./ColumnMenu.svelte";
 </script>
 
 <ul class="list-none m-0 px-8 flex gap-4 box-border items-start">
   {#each data.columns as column}
     {@const tasks = data.tasks.filter((c) => c.columnId == column.id)}
     <li
-      class="column p-4 w-72 h-96 min-w-[18rem] max-h-full bg-base-200 rounded-lg border border-neutral-300 outline-info relative group"
+      class="column p-4 w-72 min-h-[24rem] min-w-[18rem] max-h-full bg-base-200 rounded-lg border border-neutral-300 outline-info relative group"
       use:dropzone={{
         on_dropzone(task_id) {
           const task = data.tasks.find((c) => c.id == task_id);
@@ -83,43 +101,18 @@
         },
       }}
     >
-      <div
-        class="dropdown dropdown-bottom dropdown-end dropdown-hover absolute right-0 top-0 opacity-0 group-hover:opacity-100 duration-500 z-50"
-        class:hidden={EditModeColumn == column.id}
-      >
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <!-- svelte-ignore a11y-label-has-associated-control -->
-        <label tabindex="0" class="btn m-1"
-          ><i class="fa-solid fa-ellipsis" /></label
-        >
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <ul
-          tabindex="0"
-          class="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-52"
-        >
-          <li>
-            <button
-              class="text-error hover:bg-error hover:text-error-content"
-              on:click={() => {
-                removeColumn(column.id);
-              }}
-            >
-              <i class="fa-solid fa-trash" /> Delete
-            </button>
-          </li>
-          <li>
-            <button
-              class="hover:bg-info hover:text-info-content"
-              on:click={() => {
-                EditModeColumn = column.id;
-                newLabel = column.label;
-              }}
-            >
-              <i class="fa-solid fa-pen" /> Rename
-            </button>
-          </li>
-        </ul>
-      </div>
+      <ColumnMenu
+        bind:EditModeColumn
+        bind:column
+        on:deleteColumn={() => {
+          removeColumn(column.id);
+        }}
+        on:renameColumn={(e) => {
+          newLabel = e.detail.label;
+          EditModeColumn = e.detail.id;
+        }}
+      />
+      <!-- show col name or text field to edit it -->
       {#if EditModeColumn != column.id}
         <h2 class="mb-4 font-bold">{column.label}</h2>
       {:else}
@@ -145,24 +138,46 @@
       {#if tasks.length > 0}
         <ul class="cards flex flex-col gap-2">
           {#each tasks as task (task.id)}
+            <!-- uses to show details for a specific task when clicked -->
+            <TaskDetailsModel bind:modal={taskDetailsModal} bind:task />
+
             <li
-              class={`p-4 bg-neutral rounded-lg border border-neutral-300 bg-[${
+              class={` bg-neutral relative rounded-lg border border-neutral-300 bg-[${
                 priorityColors[task.priority]
               }]`}
               use:draggable={task.id}
             >
-              <Task bind:task />
+              <button
+                class="p-4 w-full"
+                on:click={() => taskDetailsModal.showModal()}
+              >
+                <Task bind:task />
+              </button>
             </li>
           {/each}
         </ul>
-      {:else}
-        <p>No Tasks...</p>
       {/if}
+      <button
+        class="min-w-[18rem] text-start font-light text-base-content/80 mt-2"
+        on:click={() => {
+          addTask(column.id);
+        }}
+      >
+        <i class="fa-solid fa-plus" />
+        New
+      </button>
     </li>
   {/each}
-  <button class="min-w-[18rem] text-start" on:click={addColumn}
-    >add column</button
-  >
+  <div class="flex flex-col">
+    <div class="divider m-0 items-start" />
+    <button
+      class="min-w-[18rem] text-start font-light text-base-content/80"
+      on:click={addColumn}
+    >
+      <i class="fa-solid fa-plus" />
+      Add column</button
+    >
+  </div>
 </ul>
 
 <style>
