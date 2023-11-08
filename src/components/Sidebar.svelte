@@ -30,8 +30,8 @@
   }
 </script>
 
-<div class="fixed bg-base-200 h-screen w-[18rem] z-40">
-  <div class="flex flex-col justify-between h-full px-3">
+<div class="bg-base-200 h-screen w-1/5 z-40">
+  <div class="flex flex-col justify-between h-full px-3 w-full">
     <div class="flex flex-col text-center h-[90%] gap-16 mt-8">
       <div class="flex font-bold items-center justify-start gap-2">
         <img class="w-8 h-8 rounded-full" src={$user?.photoURL} alt="profile" />

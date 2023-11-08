@@ -2,10 +2,13 @@
   import { dropzone, draggable } from "../functions/dragAndDrop";
   import type { ProjectType } from "../types/project";
   export let data: ProjectType;
+  import { errorStore } from "../stores/errorStore";
+  import { setDocument } from "../functions/firebase";
   let EditModeColumn: string;
   let newLabel: string;
 
-  import { setDocument } from "../functions/firebase";
+  $: update(data);
+
   function isProjectDataValid(dataToUpdate: ProjectType) {
     if (!dataToUpdate.title) return false;
     if (!dataToUpdate.dateCreated) return false;
@@ -17,10 +20,10 @@
     if (dataToUpdate.users?.length == 0) return false;
     return true;
   }
-  // Add a new document in collection "cities"
   async function update(dataToUpdate) {
     if (!isProjectDataValid(dataToUpdate)) {
     }
+
     await setDocument("projects/" + data.id, {
       title: dataToUpdate.title,
       dateCreated: dataToUpdate.dateCreated,
@@ -28,10 +31,8 @@
       columns: dataToUpdate.columns,
       users: dataToUpdate.users,
     });
+    console.log("updated");
   }
-  // $: updateDocument("projects", removeRef(data));
-  $: console.log("updating"), data;
-  $: update(data);
 
   function addColumn() {
     //find last id
@@ -43,13 +44,22 @@
     });
     data = data;
   }
+
   function removeColumn(id) {
     //check if there are tasks in the column
     const tasks = data.tasks.filter((c) => c.columnId == id);
-    if (tasks.length > 0)
-      return alert(
-        "There are tasks in this column, please move them before deleting the column"
-      );
+    if (tasks.length > 0) {
+      errorStore.update((e) => {
+        const message = [
+          ...e,
+          { message: "You can't delete a column with tasks in it" },
+        ];
+
+        return message;
+      });
+      return;
+    }
+
     //remove column
     data.columns = data.columns.filter((c) => c.id != id);
     data = data;
@@ -57,13 +67,14 @@
 
   const priorityColors = ["success", "info", "warning", "error"];
   import Task from "./Task.svelte";
+  import { userProjects } from "../stores/userDataStore";
 </script>
 
 <ul class="list-none m-0 px-8 flex gap-4 box-border items-start">
   {#each data.columns as column}
     {@const tasks = data.tasks.filter((c) => c.columnId == column.id)}
     <li
-      class="column p-4 w-72 h-96 max-h-full bg-base-200 rounded-lg border border-neutral-300 outline-info relative group"
+      class="column p-4 w-72 h-96 min-w-[18rem] max-h-full bg-base-200 rounded-lg border border-neutral-300 outline-info relative group"
       use:dropzone={{
         on_dropzone(task_id) {
           const task = data.tasks.find((c) => c.id == task_id);
@@ -149,7 +160,9 @@
       {/if}
     </li>
   {/each}
-  <button class="" on:click={addColumn}>add column</button>
+  <button class="min-w-[18rem] text-start" on:click={addColumn}
+    >add column</button
+  >
 </ul>
 
 <style>
