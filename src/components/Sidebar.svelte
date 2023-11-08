@@ -15,7 +15,7 @@
     const project = {
       title: newProjectTitle,
       dateCreated: new Date().toISOString(),
-      tasks: [{ id: "1", title: "Task 1", columnId: "1" }],
+      tasks: [{ id: "1", title: "Task 1", columnId: "1", priority: 0 }],
       columns: [
         { id: "1", label: "To Do" },
         { id: "2", label: "In Progress" },
@@ -29,7 +29,7 @@
   }
 </script>
 
-<div class="fixed bg-base-200 h-screen w-[18rem]">
+<div class="fixed bg-base-200 h-screen w-[18rem] z-40">
   <div class="flex flex-col justify-between h-full px-3">
     <div class="flex flex-col text-center h-[90%] gap-16 mt-8">
       <div class="flex font-bold items-center justify-start gap-2">
@@ -37,7 +37,7 @@
         <p>{$user?.displayName}</p>
       </div>
 
-      <div class="flex flex-col items-center w-full">
+      <div class="flex flex-col items-center h-full">
         <div />
         <div class="join flex w-full mb-8">
           <input
