@@ -150,7 +150,7 @@
             <TaskDetailsModel bind:modal={taskDetailsModal} bind:task />
 
             <li
-              class={` bg-neutral relative rounded-lg border border-neutral-300 bg-[${
+              class={` bg-neutral relative rounded-lg border hover:bg-slate-600 border-neutral-300 bg-[${
                 priorityColors[task.priority]
               }]`}
               use:draggable={task.id}
