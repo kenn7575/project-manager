@@ -50,6 +50,7 @@
                 class="text-success"
                 on:click={() => {
                   task.priority = 0;
+                  update();
                 }}
                 >Low
               </button>
@@ -59,6 +60,7 @@
                 class="text-warning"
                 on:click={() => {
                   task.priority = 1;
+                  update();
                 }}
                 >Medium
               </button>
@@ -68,6 +70,7 @@
                 class="text-orange-400"
                 on:click={() => {
                   task.priority = 2;
+                  update();
                 }}
                 >High
               </button>
@@ -77,6 +80,7 @@
                 class="text-error"
                 on:click={() => {
                   task.priority = 3;
+                  update();
                 }}
                 >Very High
               </button>
