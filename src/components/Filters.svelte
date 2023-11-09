@@ -9,7 +9,7 @@
     priorityFilter = priorityFilter.filter((i) => i !== ind);
     priorityFilter = priorityFilter;
   }
-  $: console.log(priorityFilter);
+  let checks = [false, false, false, false];
 </script>
 
 <div class="dropdown">
@@ -37,7 +37,7 @@
             }
           }}
           type="checkbox"
-          checked={false}
+          bind:checked={checks[0]}
           class="checkbox checkbox-primary"
         />
       </div>
@@ -54,7 +54,7 @@
             }
           }}
           type="checkbox"
-          checked={false}
+          bind:checked={checks[1]}
           class="checkbox checkbox-primary"
         />
       </div>
@@ -71,7 +71,7 @@
             }
           }}
           type="checkbox"
-          checked={false}
+          bind:checked={checks[2]}
           class="checkbox checkbox-primary"
         />
       </div>
@@ -88,7 +88,7 @@
             }
           }}
           type="checkbox"
-          checked={false}
+          bind:checked={checks[3]}
           class="checkbox checkbox-primary"
         />
       </div>
@@ -97,6 +97,7 @@
     <button
       on:click={() => {
         priorityFilter = [];
+        checks = [false, false, false, false];
       }}
       class="btn w-full hover:text-error"
     >
