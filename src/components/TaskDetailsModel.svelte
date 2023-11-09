@@ -5,7 +5,7 @@
 
   export let task: TaskType;
 
-  let shadowTask = task;
+  let shadowTask = { ...task };
 
   import PrioritySetting from "./PrioritySetting.svelte";
 
@@ -14,7 +14,7 @@
   const dispatch = createEventDispatcher();
   //displatch delete column enevt
   function update() {
-    task = shadowTask;
+    task = { ...shadowTask };
     dispatch("update", task.id);
   }
 </script>
@@ -28,9 +28,19 @@
   on:click={(e) => e.target == modal && modal?.close()}
 >
   <div class="modal-box w-4/5 h-3/6 p-16">
-    <h3 class="font-bold text-lg">{task.title}</h3>
-    <p>Edit task</p>
+    <h3 class="font-bold text-lg">{shadowTask.title}</h3>
+
     <div class="modal-action w-full flex flex-col">
+      <div class="flex justify-between items-center">
+        <p>Name</p>
+        <input
+          bind:value={shadowTask.title}
+          type="text"
+          placeholder="Type here"
+          class="input input-bordered w-full max-w-xs"
+        />
+      </div>
+      <div class="divider my-4" />
       <PrioritySetting bind:task={shadowTask} />
       <div class="flex" />
     </div>
