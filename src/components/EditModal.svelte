@@ -17,7 +17,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<dialog id="editModal" class="modal backdrop-blur-sm" bind:this={modal} on:click={(e) => e.target == modal && modal?.close()}>
+<dialog id="editModal" class="modal" bind:this={modal} on:click={(e) => e.target == modal && modal?.close()}> <!-- class="modal backdrop-blur-sm" -->
   <div class="modal-box flex flex-col gap-5">
     <h3 class="font-bold text-lg">{projectChanges.title}</h3>
     <input type="text" class="input input-bordered" placeholder="Project title" bind:value={projectChanges.title} />
@@ -31,15 +31,24 @@
               <div class="badge badge-neutral flex gap-2">
                 <p>{user.name}</p>
                 <button on:click={() => {
-                  projectChanges.users = projectChanges.users.filter((u) => u !== user.id)
-                }}><i class="fas fa-x fa-2xs" /></button>
+                  projectChanges.users = projectChanges.users.filter(u => u !== user.id)
+                }}><i class="fas fa-x fa-2xs"/>
+                </button>
+              </div>
+            {:else}
+              <div class="badge badge-success flex gap-2">
+                <p>{user.name}</p>
+                <button on:click={() => {
+                  projectChanges.users = [...projectChanges.users, user.id]
+                }}><i class="fas fa-plus fa-2xs"/>
+                </button>
               </div>
             {/if}
           {/each}
       {/await}
     </li>
     <div class="modal-action">
-      <form method="dialog">
+      <form method="dialog" class="flex gap-5">
         <button on:click={() => projectChanges = {...project}} class="btn">Cancel</button>
         <button on:click={updateProject} class="btn btn-info">Confirm</button>
       </form>
