@@ -9,8 +9,6 @@
   import TaskDetailsModel from "./TaskDetailsModel.svelte";
   let taskDetailsModal;
 
-  //   $: update(data);
-
   function isProjectDataValid(dataToUpdate: ProjectType) {
     if (!dataToUpdate.title) return false;
     if (!dataToUpdate.dateCreated) return false;
@@ -90,6 +88,18 @@
   const priorityColors = ["success", "info", "warning", "error"];
   import Task from "./Task.svelte";
   import ColumnMenu from "./ColumnMenu.svelte";
+
+  export let priorityFilter: number[];
+  const original: ProjectType = { ...data };
+
+  $: if (priorityFilter?.length > 0) {
+    data.tasks = original.tasks.filter((t) =>
+      priorityFilter.includes(t.priority)
+    );
+  } else {
+    // Reset filters and show all tasks
+    data = { ...original };
+  }
 </script>
 
 <ul class="list-none m-0 px-8 flex gap-4 box-border items-start p-2">
