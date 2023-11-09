@@ -19,11 +19,15 @@
     currentProject = $userProjects?.find((project) => project.id === projectId);
   }
 
+  $: console.log("updated ui", $userProjects);
+
   onMount(() => getId());
 
-  $: (currentProject = $userProjects?.find(
-    (project) => project.id === projectId
-  )),
+  //
+  $: (currentProject = $userProjects?.find((project) => {
+    console.log("current projects updated");
+    return project.id === projectId;
+  })),
     getId();
 </script>
 
@@ -35,7 +39,9 @@
         <h1>{currentProject.title}</h1>
         {#if currentProject?.columns.length > 0 && currentProject?.tasks.length > 0}
           <div class="overflow-auto max-w-full">
-            <DragList data={currentProject} />
+            {#key $userProjects}
+              <DragList data={currentProject} />
+            {/key}
           </div>
         {/if}
       </div>

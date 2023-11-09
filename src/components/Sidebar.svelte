@@ -61,7 +61,6 @@
         {/if}
       </div>
     </div>
-
     <div class="font-bold mb-4">
       <button on:click={LogOut}>Sign out</button>
     </div>
