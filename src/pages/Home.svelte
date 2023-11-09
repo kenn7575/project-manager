@@ -1,6 +1,7 @@
 <script lang="ts">
   import Sidebar from "../components/Sidebar.svelte";
   import { userProjects } from "../stores/userDataStore";
+
   import DragList from "../components/DragList.svelte";
   import { onMount } from "svelte";
   import type { ProjectType } from "../types/project";

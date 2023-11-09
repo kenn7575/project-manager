@@ -9,7 +9,7 @@
   import TaskDetailsModel from "./TaskDetailsModel.svelte";
   let taskDetailsModal;
 
-  $: update(data);
+  //   $: update(data);
 
   function isProjectDataValid(dataToUpdate: ProjectType) {
     if (!dataToUpdate.title) return false;
@@ -44,6 +44,7 @@
       dateCreated: new Date(),
     });
     data = data;
+    update(data);
   }
 
   function removeColumn(id) {
@@ -64,10 +65,12 @@
     //remove column
     data.columns = data.columns.filter((c) => c.id != id);
     data = data;
+    update(data);
   }
   function removeTask(id) {
     data.tasks = data.tasks.filter((c) => c.id != id);
     data = data;
+    update(data);
   }
   function addTask(columnId) {
     //find last id
@@ -81,6 +84,7 @@
       description: "",
     });
     data = data;
+    update(data);
   }
 
   const priorityColors = ["success", "info", "warning", "error"];
@@ -97,7 +101,9 @@
         on_dropzone(task_id) {
           const task = data.tasks.find((c) => c.id == task_id);
           task.columnId = column.id;
+          console.log("something was moved");
           data = data;
+          update(data);
         },
       }}
     >
@@ -120,6 +126,8 @@
           on:submit={() => {
             EditModeColumn = null;
             column.label = newLabel;
+            data = data;
+            update(data);
           }}
         >
           <div class="join">
