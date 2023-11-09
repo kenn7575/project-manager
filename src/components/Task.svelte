@@ -1,6 +1,13 @@
 <script lang="ts">
   export let task: TaskType;
   import type { TaskType } from "../types/task";
+  //create event dispatcher
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+  //displatch delete column enevt
+  function update() {
+    dispatch("update", task.id);
+  }
 </script>
 
 <div class="flex flex-col w-full">

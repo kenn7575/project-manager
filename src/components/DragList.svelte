@@ -159,7 +159,13 @@
                 class="p-4 w-full"
                 on:click={() => taskDetailsModal.showModal()}
               >
-                <Task bind:task />
+                <Task
+                  bind:task
+                  on:update={() => {
+                    data = data;
+                    update(data);
+                  }}
+                />
               </button>
             </li>
           {/each}
