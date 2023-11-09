@@ -4,6 +4,14 @@
   export let modal;
 
   export let task: TaskType;
+
+  //create event dispatcher
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+  //displatch delete column enevt
+  function update() {
+    dispatch("update", task.id);
+  }
 </script>
 
 <dialog id="my_modal_1" class="modal" bind:this={modal}>
