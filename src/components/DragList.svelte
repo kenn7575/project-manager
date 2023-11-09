@@ -147,7 +147,14 @@
         <ul class="cards flex flex-col gap-2">
           {#each tasks as task (task.id)}
             <!-- uses to show details for a specific task when clicked -->
-            <TaskDetailsModel bind:modal={taskDetailsModal} bind:task />
+            <TaskDetailsModel
+              bind:modal={taskDetailsModal}
+              bind:task
+              on:update={() => {
+                data = data;
+                update(data);
+              }}
+            />
 
             <li
               class={` bg-neutral relative rounded-lg border hover:bg-slate-600 border-neutral-300 bg-[${
@@ -159,13 +166,7 @@
                 class="p-4 w-full"
                 on:click={() => taskDetailsModal.showModal()}
               >
-                <Task
-                  bind:task
-                  on:update={() => {
-                    data = data;
-                    update(data);
-                  }}
-                />
+                <Task bind:task />
               </button>
             </li>
           {/each}
