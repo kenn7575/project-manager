@@ -123,9 +123,19 @@ export async function deleteDocument(path) {
 export async function getDocument(path) {
   const docRef = doc(db, path);
   const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    return docSnap.data();
-  } else {
-    return null;
-  }
+  if (docSnap.exists()) return docSnap.data();
+  else return null;
+}
+
+export async function getCollection(path?) {
+  const q = query(collection(db, path));
+
+  let docs = [];
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    docs.push({ ...doc.data(), id: doc.id });
+  });
+
+  return docs;
 }

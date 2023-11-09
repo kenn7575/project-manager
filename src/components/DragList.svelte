@@ -92,7 +92,7 @@
   {#each data.columns as column}
     {@const tasks = data.tasks.filter((c) => c.columnId == column.id)}
     <li
-      class="column p-4 w-72 min-h-[24rem] min-w-[18rem] max-h-full bg-base-200 rounded-lg border border-neutral-300 outline-info relative group"
+      class="column p-4 w-72 min-h-[24rem] min-w-[18rem] bg-base-200 rounded-lg border border-neutral-300 outline-info relative group"
       use:dropzone={{
         on_dropzone(task_id) {
           const task = data.tasks.find((c) => c.id == task_id);
@@ -158,7 +158,7 @@
         </ul>
       {/if}
       <button
-        class="min-w-[18rem] text-start font-light text-base-content/80 mt-2"
+        class="w-full btn-ghost p-1 rounded-md text-start font-light text-base-content/80 mt-2"
         on:click={() => {
           addTask(column.id);
         }}
