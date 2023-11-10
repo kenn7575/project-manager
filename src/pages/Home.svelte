@@ -20,13 +20,10 @@
     currentProject = $userProjects?.find((project) => project.id === projectId);
   }
 
-  $: console.log("updated ui", $userProjects);
-
   onMount(() => getId());
 
   //
   $: (currentProject = $userProjects?.find((project) => {
-    console.log("current projects updated");
     return project.id === projectId;
   })),
     getId();

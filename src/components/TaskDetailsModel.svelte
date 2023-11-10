@@ -17,12 +17,14 @@
     task = { ...shadowTask };
     dispatch("update", task.id);
   }
+
+  $: if (shadowTask.title == "") shadowTask.title = "Untitled";
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog
-  id="my_modal_1"
+  id={task.id + "_editModal"}
   class="modal"
   bind:this={modal}
   on:click={(e) => e.target == modal && modal?.close()}
