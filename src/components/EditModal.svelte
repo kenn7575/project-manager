@@ -38,13 +38,17 @@
       placeholder="Project description"
       bind:value={projectChanges.description}
     />
+    <div class="flex gap-6 text-sm font-medium mt-2">
+      <div class="indicators"><div class="badge badge-info" /><p>Tilføjet</p></div>
+      <div class="indicators"><div class="badge badge-neutral" /><p>Kan tilføjes</p></div>
+    </div>
     <li class="flex gap-3">
       {#await getCollection("users")}
         <p>Loading</p>
       {:then users}
         {#each users as user}
           {#if projectChanges.users.includes(user.id)}
-            <div class="badge badge-neutral flex gap-2">
+            <div class="badge badge-info flex gap-2">
               <p>{user.name}</p>
               <button
                 on:click={() => {
@@ -56,7 +60,7 @@
               </button>
             </div>
           {:else}
-            <div class="badge badge-success flex gap-2">
+            <div class="badge badge-neutral flex gap-2">
               <p>{user.name}</p>
               <button
                 on:click={() => {
@@ -69,7 +73,7 @@
         {/each}
       {/await}
     </li>
-    <div class="modal-action">
+    <div class="modal-action mt-4">
       <form method="dialog" class="flex gap-5">
         <button on:click={() => (projectChanges = { ...project })} class="btn"
           >Cancel</button
@@ -79,3 +83,15 @@
     </div>
   </div>
 </dialog>
+
+<style>
+  .indicators {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .indicators > div {
+    @apply border-base-content badge-xs;
+  }
+</style>

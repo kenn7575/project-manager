@@ -18,6 +18,10 @@
     dispatch("update", task.id);
   }
 
+  function deleteTask() {
+    dispatch("delete", task.id);
+  }
+
   $: if (shadowTask.title == "") shadowTask.title = "Untitled";
 </script>
 
@@ -52,6 +56,9 @@
           class="btn btn-outline join-item"
           on:click={() => (shadowTask = { ...task })}>Cancel</button
         >
+        <button class="btn btn-error join-item" on:click={deleteTask}>
+          Delete
+        </button>
         <button class="btn btn-primary join-item" on:click={update}
           >Update</button
         >
