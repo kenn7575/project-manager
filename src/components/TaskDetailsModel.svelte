@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { currentTask } from "./DragList.svelte";
   import type { TaskType } from "../types/task";
 
   export let modal;
@@ -18,8 +17,6 @@
     task = { ...shadowTask };
     dispatch("update", task.id);
   }
-
-  $: if (shadowTask.title == "") shadowTask.title = "Untitled";
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
