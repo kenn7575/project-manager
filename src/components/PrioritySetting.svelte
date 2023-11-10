@@ -28,6 +28,13 @@
     >
       <li>
         <button
+          class=""
+          on:click={() => {
+            task.priority = -1;
+          }}
+          >None
+        </button>
+        <button
           class="text-success"
           on:click={() => {
             task.priority = 0;
