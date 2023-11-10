@@ -37,7 +37,6 @@ export function colStore<T>(path: string, filters?: any[], _orderBy?: any) {
       });
 
       set(documents as T | null);
-      console.log("colStore", documents);
     });
 
     return () => unsubscribe();

@@ -88,6 +88,7 @@
   const priorityColors = ["success", "info", "warning", "error"];
   import Task from "./Task.svelte";
   import ColumnMenu from "./ColumnMenu.svelte";
+    import TaskModal from "./TaskModal.svelte"
 
   export let priorityFilter: number[];
   const original: ProjectType = { ...data };
@@ -157,28 +158,7 @@
         <ul class="cards flex flex-col gap-2">
           {#each tasks as task (task.id)}
             <!-- uses to show details for a specific task when clicked -->
-            <TaskDetailsModel
-              bind:modal={taskDetailsModal}
-              bind:task
-              on:update={() => {
-                data = data;
-                update(data);
-              }}
-            />
-
-            <li
-              class={` bg-neutral relative rounded-lg border hover:bg-slate-600 border-neutral-300 bg-[${
-                priorityColors[task.priority]
-              }]`}
-              use:draggable={task.id}
-            >
-              <button
-                class="p-4 w-full"
-                on:click={() => taskDetailsModal.showModal()}
-              >
-                <Task bind:task />
-              </button>
-            </li>
+            <TaskModal {task} project={data} />
           {/each}
         </ul>
       {/if}
