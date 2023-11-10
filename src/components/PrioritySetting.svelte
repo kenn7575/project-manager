@@ -3,7 +3,7 @@
   export let task;
 </script>
 
-<div class="flex justify-between w-full">
+<div class="flex justify-between !m-0">
   <p>Priority</p>
   <div class="dropdown">
     {#if task.priority == 0}
@@ -14,7 +14,7 @@
       >
     {:else if task.priority == 2}
       <label
-        tabindex="0"
+        tabindex="1"
         class="btn w-28 btn-sm btn-warning bg-orange-400 m-1 border-orange-400 hover:bg-orange-400 hover:border-orange-400"
         >High</label
       >

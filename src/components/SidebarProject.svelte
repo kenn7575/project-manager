@@ -9,7 +9,6 @@
   let deleteModal;
 
   $: openProject = currentProject == project;
-  // console.log(openProject)
 
   let projectButton
 </script>
@@ -22,7 +21,7 @@
     currentProject = project;
     window.history.replaceState("", null, "/project/" + project.id);
   }}
-  class={`btn-ghost ${
+  class={`btn-ghost mainButton ${
     openProject
       ? "bg-base-300 border-2 border-gray-500 hover:border-gray-400"
       : "bg-neutral"
@@ -32,18 +31,7 @@
 >
   <p class="pointer-events-none">{project.title}</p>
 
-  <div class="flex gap-6 items-center">
-    <!-- <button
-      on:click={() => {
-        currentProject = project;
-        window.history.replaceState("", null, "/project/" + project.id);
-      }}
-    >
-      <i
-        class="fas fa-up-right-from-square hover:text-success project-button"
-        title="Open project"
-      />
-    </button> -->
+  <div class="flex opacity-0 gap-6 items-center project-button-group">
     <EditModal bind:modal={editModal} bind:project />
     <button on:click={() => editModal.showModal()}>
       <i
@@ -66,5 +54,13 @@
     transition-property: all;
     transition-duration: 150ms;
     /* cursor: pointer; */
+  }
+
+  .mainButton:hover .project-button-group {
+    opacity: 1;
+  }
+
+  .project-button-group {
+    transition: all 150ms ease-in-out;
   }
 </style>

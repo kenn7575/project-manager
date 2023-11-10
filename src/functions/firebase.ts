@@ -41,7 +41,7 @@ export function LogOut() {
 export function LogIn() {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
-    .then((result) => {
+    .then(async (result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
@@ -49,6 +49,19 @@ export function LogIn() {
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
       // ...
+      const docRef = doc(db, "users/" + auth.currentUser?.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        //create user document
+        const newUser = {
+          uid: user?.uid,
+          name: user?.displayName,
+          email: user?.email,
+          photoURL: user?.photoURL,
+          dateCreated: new Date(),
+        }
+        await setDoc(docRef, newUser);
+      }
     })
     .catch((error) => {
       // Handle Errors here.
