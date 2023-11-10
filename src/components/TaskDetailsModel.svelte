@@ -33,7 +33,7 @@
   bind:this={modal}
   on:click={(e) => e.target == modal && modal?.close()}
 >
-  <div class="modal-box w-4/5 h-3/6 p-16 relative">
+  <div class="modal-box w-4/5 h-3/5 p-16 relative">
     <h3 class="font-bold text-lg">{shadowTask.title}</h3>
 
     <div class="modal-action w-full flex flex-col">
@@ -50,7 +50,7 @@
       <PrioritySetting bind:task={shadowTask} />
       <div class="flex" />
     </div>
-    <form method="dialog" class="absolute right-1 bottom-1">
+    <form method="dialog" class="absolute right-1/2 translate-x-1/2 bottom-4">
       <div class="join">
         <button
           class="btn btn-outline join-item"

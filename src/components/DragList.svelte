@@ -88,7 +88,7 @@
   const priorityColors = ["success", "info", "warning", "error"];
   import Task from "./Task.svelte";
   import ColumnMenu from "./ColumnMenu.svelte";
-    import TaskModal from "./TaskModal.svelte"
+  import TaskModal from "./TaskModal.svelte";
 
   export let priorityFilter: number[];
   const original: ProjectType = { ...data };
@@ -103,7 +103,7 @@
   }
 </script>
 
-<ul class="list-none m-0 px-8 flex gap-4 box-border items-start p-2">
+<ul class="list-none m-0 flex gap-4 box-border items-start p-2">
   {#each data.columns as column}
     {@const tasks = data.tasks.filter((c) => c.columnId == column.id)}
     <li
