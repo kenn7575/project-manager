@@ -42,7 +42,7 @@
       <div class="indicators"><div class="badge badge-info" /><p>Tilføjet</p></div>
       <div class="indicators"><div class="badge badge-neutral" /><p>Kan tilføjes</p></div>
     </div>
-    <li class="flex gap-3">
+    <li class="flex flex-wrap gap-3">
       {#await getCollection("users")}
         <p>Loading</p>
       {:then users}
