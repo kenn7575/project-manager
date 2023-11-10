@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { currentTask } from "./DragList.svelte";
   import type { TaskType } from "../types/task";
 
   export let modal;
@@ -44,7 +45,7 @@
       <PrioritySetting bind:task={shadowTask} />
       <div class="flex" />
     </div>
-    <form method="dialog" class="absolute right-1 bottom-1">
+    <form method="dialog" class="absolute right-1/2 translate-x-1/2 bottom-4">
       <div class="join">
         <button
           class="btn btn-outline join-item"
