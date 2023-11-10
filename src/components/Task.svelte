@@ -7,7 +7,10 @@
   {task.title}
   <div class="flex items-center justify-between gap-1">
     <p>Priority</p>
-    {#if task.priority == 0}
+
+    {#if task.priority == -1}
+      <div class="badge gap-2">None</div>
+    {:else if task.priority == 0}
       <div class="badge badge-success gap-2">Low</div>
     {:else if task.priority == 1}
       <div class="badge badge-warning gap-2">Medium</div>

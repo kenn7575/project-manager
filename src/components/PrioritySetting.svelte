@@ -6,7 +6,9 @@
 <div class="flex justify-between !m-0">
   <p>Priority</p>
   <div class="dropdown">
-    {#if task.priority == 0}
+    {#if task.priority == -1}
+      <label tabindex="0" class={`btn w-28 btn-sm btn-ghost m-1`}>None</label>
+    {:else if task.priority == 0}
       <label tabindex="0" class={`btn w-28 btn-sm btn-success m-1`}>Low</label>
     {:else if task.priority == 1}
       <label tabindex="0" class={`btn w-28 btn-sm btn-warning m-1`}
@@ -27,6 +29,13 @@
       class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32"
     >
       <li>
+        <button
+          class=""
+          on:click={() => {
+            task.priority = -1;
+          }}
+          >None
+        </button>
         <button
           class="text-success"
           on:click={() => {
