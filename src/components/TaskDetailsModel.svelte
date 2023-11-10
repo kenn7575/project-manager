@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { currentTask } from "./DragList.svelte";
   import type { TaskType } from "../types/task";
 
   export let modal;
@@ -30,7 +29,7 @@
   bind:this={modal}
   on:click={(e) => e.target == modal && modal?.close()}
 >
-  <div class="modal-box w-4/5 h-3/6 p-16 relative">
+  <div class="modal-box w-4/5 h-3/5 p-16 relative">
     <h3 class="font-bold text-lg">{shadowTask.title}</h3>
 
     <div class="modal-action w-full flex flex-col">
