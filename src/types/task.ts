@@ -5,6 +5,6 @@ export interface TaskType {
   title: string;
   dateCreated: Date | string;
   columnId: ColumnType["id"];
-  description: string;
+  description?: string;
   priority: number;
 }

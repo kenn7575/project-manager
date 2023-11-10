@@ -1,12 +1,12 @@
 import type { TaskType } from "./task";
 
 export interface ProjectType {
-  id: string;
+  id?: string;
   title: string;
   description: string;
-  dateCreated: Date;
+  dateCreated?: Date;
   tasks: TaskType[];
-  ref: any;
+  ref?: any;
   columns: ColumnType[];
   users: string[];
 }
@@ -14,5 +14,5 @@ export interface ProjectType {
 export interface ColumnType {
   id: string;
   label: string;
-  dateCreated: Date;
+  dateCreated?: Date;
 }

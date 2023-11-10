@@ -125,7 +125,8 @@ export async function updateDocument(path, data) {
 //add document to collection
 export async function addDocument(path, data) {
   const docRef = collection(db, path);
-  await addDoc(docRef, data);
+  const ref = await addDoc(docRef, data);
+  return ref.id;
 }
 //delete document
 export async function deleteDocument(path) {

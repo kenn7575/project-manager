@@ -1,5 +1,5 @@
 export interface ErrorType {
   message: string;
-  dateCreated: Date;
+  dateCreated?: Date;
   id: string;
 }

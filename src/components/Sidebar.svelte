@@ -12,11 +12,11 @@
 
   async function addProject() {
     if (newProjectTitle == "") return alert("Please enter a project name");
-    const project = {
+    const project: ProjectType  = {
       title: newProjectTitle,
       description: "",
-      dateCreated: new Date().toISOString(),
-      tasks: [{ id: "1", title: "Task 1", columnId: "1", priority: 0 }],
+      dateCreated: new Date(),
+      tasks: [{ id: "1", title: "Task 1", dateCreated: new Date(), columnId: "1", priority: 0 }],
       columns: [
         { id: "1", label: "To Do" },
         { id: "2", label: "In Progress" },
@@ -24,9 +24,12 @@
       ],
       users: [$user.uid],
     };
-    addDocument("projects", project);
+    const newProjectId = await addDocument("projects", project);
 
     newProjectTitle = "";
+
+    window.history.replaceState("", null, "/project/" + newProjectId);
+    currentProject = $userProjects?.find((project) => project.id === newProjectId);
   }
 </script>
 

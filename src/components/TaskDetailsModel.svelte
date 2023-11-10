@@ -15,6 +15,7 @@
   //displatch delete column enevt
   function update() {
     task = { ...shadowTask };
+    if (task.title == "") task.title = "Untitled";
     dispatch("update", task.id);
   }
 
@@ -22,7 +23,6 @@
     dispatch("delete", task.id);
   }
 
-  $: if (shadowTask.title == "") shadowTask.title = "Untitled";
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -34,7 +34,11 @@
   on:click={(e) => e.target == modal && modal?.close()}
 >
   <div class="modal-box w-4/5 h-3/5 p-16 relative">
-    <h3 class="font-bold text-lg">{shadowTask.title}</h3>
+    {#if shadowTask.title != ""}
+      <h3 class="font-bold text-lg">{shadowTask.title}</h3>
+    {:else}
+      <h3 class="font-bold text-lg opacity-40">Untitled</h3>
+    {/if}
 
     <div class="modal-action w-full flex flex-col">
       <div class="flex justify-between items-center">
@@ -43,7 +47,7 @@
           bind:value={shadowTask.title}
           type="text"
           placeholder="Type here"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full max-w-xs placeholder:opacity-50"
         />
       </div>
       <div class="divider my-4" />
