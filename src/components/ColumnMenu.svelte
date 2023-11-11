@@ -16,7 +16,7 @@
 </script>
 
 <div
-  class="dropdown dropdown-bottom dropdown-end dropdown-hover absolute right-0 top-0 opacity-0 group-hover:opacity-100 duration-500 z-50"
+  class="dropdown dropdown-bottom dropdown-end absolute right-0 top-0 opacity-0 group-hover:opacity-100 duration-500 z-50"
   class:hidden={EditModeColumn == column.id}
 >
   <!-- svelte-ignore a11y-no-noninteractive-tabindex -->

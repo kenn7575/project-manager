@@ -10,7 +10,7 @@
 
   $: openProject = currentProject == project;
 
-  let projectButton
+  let projectButton;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -21,13 +21,13 @@
     currentProject = project;
     window.history.replaceState("", null, "/project/" + project.id);
   }}
-  class={`btn-ghost mainButton ${
+  class={`  ${
     openProject
-      ? "bg-base-300 border-2 border-gray-500 hover:border-gray-400"
-      : "bg-neutral"
+      ? "bg-base-300 border-2 border-gray-500 hover:border-gray-400 text-base-content"
+      : "bg-neutral text-neutral-content"
   }
-        hover:bg-base-300 rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between project-button`}
-        bind:this={projectButton}
+        hover:bg-base-300 hover:text-base-content btn-ghost mainButton rounded-lg px-5 py-2 w-full text-left font-medium flex justify-between project-button `}
+  bind:this={projectButton}
 >
   <p class="pointer-events-none">{project.title}</p>
 

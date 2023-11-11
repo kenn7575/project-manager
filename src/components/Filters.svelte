@@ -23,7 +23,7 @@
   <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
   <ul
     tabindex="0"
-    class="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-base-300"
+    class="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-base-300 z-50"
   >
     <li>
       <div class="form-control w-full flex justify-between flex-row">

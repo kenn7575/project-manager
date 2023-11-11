@@ -3,8 +3,10 @@
   import type { TaskType } from "../types/task";
 </script>
 
-<div class="flex flex-col w-full">
-  {task.title}
+<div class="flex flex-col w-full bg-neutral text-neutral-content">
+  <h2 class="font-semibold mb-4">
+    {task.title}
+  </h2>
   <div class="flex items-center justify-between gap-1">
     <p>Priority</p>
 

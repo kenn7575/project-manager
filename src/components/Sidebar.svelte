@@ -12,11 +12,19 @@
 
   async function addProject() {
     if (newProjectTitle == "") return alert("Please enter a project name");
-    const project: ProjectType  = {
+    const project: ProjectType = {
       title: newProjectTitle,
       description: "",
       dateCreated: new Date(),
-      tasks: [{ id: "1", title: "Task 1", dateCreated: new Date(), columnId: "1", priority: 0 }],
+      tasks: [
+        {
+          id: "1",
+          title: "Task 1",
+          dateCreated: new Date(),
+          columnId: "1",
+          priority: 0,
+        },
+      ],
       columns: [
         { id: "1", label: "To Do" },
         { id: "2", label: "In Progress" },
@@ -29,7 +37,9 @@
     newProjectTitle = "";
 
     window.history.replaceState("", null, "/project/" + newProjectId);
-    currentProject = $userProjects?.find((project) => project.id === newProjectId);
+    currentProject = $userProjects?.find(
+      (project) => project.id === newProjectId
+    );
   }
 </script>
 
@@ -45,12 +55,15 @@
         <div />
         <div class="join flex w-full mb-8">
           <input
-            class="join-item w-full px-3 py-[0.33rem] rounded-lg bg-neutral outline-none font-semibold placeholder:opacity-60 placeholder:font-normal"
+            class="join-item w-full px-3 py-[0.33rem] rounded-lg input outline-none font-semibold placeholder:opacity-60 placeholder:font-normal"
             type="text"
             placeholder="New project"
             bind:value={newProjectTitle}
           />
-          <button class="join-item bg-base-300 px-3" on:click={addProject}>
+          <button
+            class="join-item bg-base-300 px-3 btn-square"
+            on:click={addProject}
+          >
             <i class="fas fa-plus" />
           </button>
         </div>

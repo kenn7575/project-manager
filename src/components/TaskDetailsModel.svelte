@@ -22,7 +22,6 @@
   function deleteTask() {
     dispatch("delete", task.id);
   }
-
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -41,13 +40,23 @@
     {/if}
 
     <div class="modal-action w-full flex flex-col">
-      <div class="flex justify-between items-center">
-        <p>Name</p>
+      <div class="flex justify-start flex-col items-center">
+        <p class="text-start w-full mb-2">Name</p>
         <input
           bind:value={shadowTask.title}
           type="text"
-          placeholder="Type here"
-          class="input input-bordered w-full max-w-xs placeholder:opacity-50"
+          placeholder="Title"
+          class="input input-bordered w-full placeholder:opacity-50"
+        />
+      </div>
+
+      <div class="flex justify-start items-center flex-col !ml-0 mt-4">
+        <p class="text-start w-full mb-2">Description</p>
+        <input
+          bind:value={shadowTask.description}
+          type="text"
+          placeholder="Description"
+          class="input input-bordered w-full placeholder:opacity-50"
         />
       </div>
       <div class="divider my-4" />

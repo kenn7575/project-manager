@@ -5,19 +5,16 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import { updateDocument } from "../functions/firebase";
 import { db } from "../functions/firebase";
 import { writable } from "svelte/store";
 
 // Custom store to get a document from Firestore
 export function colStore<T>(path: string, filters?: any[], _orderBy?: any) {
   let unsubscribe: () => void;
-  let currentData: T | null = null;
 
   const collectionRef = collection(db, path);
-  let docs: any[];
 
-  // Create a query against the collection.
+  // Create a query basedon the provided filters and orderBy
   let _query;
   if (filters && filters.length === 3) {
     _query = query(
@@ -42,12 +39,7 @@ export function colStore<T>(path: string, filters?: any[], _orderBy?: any) {
     return () => unsubscribe();
   });
 
-  function save(id: number) {
-    const doc = docs.map((e) => e.id == id);
-    updateDocument(path + "/" + id, doc);
-  }
   return {
     subscribe,
-    save,
   };
 }
