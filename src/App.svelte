@@ -7,11 +7,7 @@
   import { onMount } from "svelte";
   let isMobileWithTouch;
   onMount(() => {
-    isMobileWithTouch =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      navigator.msMaxTouchPoints > 0 ||
-      window.innerWidth <= 768;
+    isMobileWithTouch = "ontouchstart" in window || window.innerWidth <= 768;
   });
 </script>
 
