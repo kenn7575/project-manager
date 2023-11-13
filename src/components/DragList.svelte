@@ -85,8 +85,6 @@
     update(data);
   }
 
-  const priorityColors = ["success", "info", "warning", "error"];
-  import Task from "./Task.svelte";
   import ColumnMenu from "./ColumnMenu.svelte";
   import TaskModal from "./TaskModal.svelte";
 
