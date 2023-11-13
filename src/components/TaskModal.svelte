@@ -19,11 +19,6 @@
     shadowProject.tasks[index] = task;
     updateDocument("projects/" + project.id, shadowProject);
   }
-  function deleteTask(task) {
-    const index = shadowProject.tasks.findIndex((t) => t.id == task.id);
-    shadowProject.tasks.splice(index, 1);
-    updateDocument("projects/" + project.id, shadowProject);
-  }
 </script>
 
 <TaskDetailsModel
@@ -31,10 +26,6 @@
   bind:task
   on:update={() => {
     update(task);
-    editModal.close();
-  }}
-  on:delete={() => {
-    deleteTask(task);
     editModal.close();
   }}
 />

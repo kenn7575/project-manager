@@ -3,7 +3,7 @@
   import type { TaskType } from "../types/task";
 </script>
 
-<div class="flex flex-col w-full bg-neutral text-neutral-content">
+<div class="flex flex-col w-full text-neutral-content">
   <h2 class="font-semibold mb-4">
     {task.title}
   </h2>
